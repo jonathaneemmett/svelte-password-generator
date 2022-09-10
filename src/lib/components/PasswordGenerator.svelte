@@ -1,5 +1,9 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import CopyIcon from "./icons/CopyIcon.svelte";
+
+    let dispatch = createEventDispatcher();
+
     export let generatedPassword = "";
     export let charlen = 16;
 
@@ -11,6 +15,7 @@
         navigator.clipboard.writeText(generatedPassword);
         copiedAlert.style.display = "block";
         generatedPassword === suggestedPassword;
+        dispatch("copied");
         isCopied = true;
     }
 
@@ -32,7 +37,7 @@
         let copiedAlert = document.getElementById("copied-alert");
         copiedAlert.style.display = "none";
         isCopied = false;
-    }, 5000);
+    }, 4000);
 
 </script>
 
@@ -52,7 +57,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 0 0 5px 0;
+    }
+
+    .gpHeader h5 {
+        margin: 0 0 5px 0; 
+        padding: 5px;
     }
     .gpContainer {
         display: flex;
@@ -66,8 +75,9 @@
 
     .gpCopiedAlert {
         display: none;
+        width: 60px;
         background: #ccc;
-        margin: 0 0 5px 0; 
+        
         font-size: 12px; 
         text-align: center;  
         padding: 5px; 
