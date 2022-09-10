@@ -5,6 +5,8 @@ let name;
 let email;
 let password;
 let password2;
+let text = "Suggested Password";
+let charlen = 16;
 
 
 const handleGeneratedPassword = (e) => {
@@ -30,7 +32,7 @@ const handleGeneratedPassword = (e) => {
     <div class="form-group">
       <input type="password" id="password2" class="form-control" placeholder="Confirm Password" bind:value={password2} />
     </div>
-    <PasswordGenerator on:generatedPassword={handleGeneratedPassword} />
+    <PasswordGenerator text={text} charlen={charlen} on:generatedPassword={handleGeneratedPassword} />
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Register</button>
     </div>

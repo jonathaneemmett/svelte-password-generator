@@ -5,6 +5,7 @@
 
     let dispatch = createEventDispatcher();
 
+    export let text = "Sugessted Password";
     export let charlen = 16;
 
     let suggestedPassword = "";
@@ -41,7 +42,7 @@
 
 <div>
     <div class="gpHeader">
-        <h5>Suggested Password</h5>
+        <h5>{text}</h5>
         <span id="copied-alert" class="gpCopiedAlert">Copied</span>
     </div>
     <div class="gpContainer">
