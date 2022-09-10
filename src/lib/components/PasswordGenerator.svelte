@@ -1,10 +1,10 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import CopyIcon from "./icons/CopyIcon.svelte";
+    import RecycleIcon from "./icons/RecycleIcon.svelte";
 
     let dispatch = createEventDispatcher();
 
-    export let generatedPassword = "";
     export let charlen = 16;
 
     let suggestedPassword = "";
@@ -12,10 +12,10 @@
 
     function copy() {
         let copiedAlert = document.getElementById("copied-alert");
-        navigator.clipboard.writeText(generatedPassword);
+        navigator.clipboard.writeText(suggestedPassword);
         copiedAlert.style.display = "block";
-        generatedPassword === suggestedPassword;
-        dispatch("copied");
+        console.log(suggestedPassword);
+        dispatch('generatedPassword', suggestedPassword);
         isCopied = true;
     }
 
@@ -31,8 +31,6 @@
 
     generatePassword();
 
-    $: suggestedPassword && console.log(suggestedPassword);
-
     $: isCopied && setTimeout(() => {
         let copiedAlert = document.getElementById("copied-alert");
         copiedAlert.style.display = "none";
@@ -47,7 +45,8 @@
         <span id="copied-alert" class="gpCopiedAlert">Copied</span>
     </div>
     <div class="gpContainer">
-        <p>{suggestedPassword}</p>
+        <div on:click|preventDefault={() => generatePassword()}><RecycleIcon /></div>
+        <div>{suggestedPassword}</div>
         <div on:click|preventDefault={() => copy()}><CopyIcon /></div>
     </div>
 </div>
@@ -64,13 +63,18 @@
         padding: 5px;
     }
     .gpContainer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 8fr 1fr;
         margin: 5px 0 15px 0;
         border: 1px solid #ccc;
         padding: 1rem;
         border-radius: 5px;
+    }
+
+    .gpContainer div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .gpCopiedAlert {

@@ -5,9 +5,13 @@ let name;
 let email;
 let password;
 let password2;
-let generatedPassword = "";
 
-$: generatedPassword && password === generatedPassword;
+
+const handleGeneratedPassword = (e) => {
+  console.log(e.detail);
+  password = e.detail;
+  password2 = e.detail;
+};
 
 </script>
 
@@ -26,7 +30,7 @@ $: generatedPassword && password === generatedPassword;
     <div class="form-group">
       <input type="password" id="password2" class="form-control" placeholder="Confirm Password" bind:value={password2} />
     </div>
-    <PasswordGenerator bind:generatedPassword={generatedPassword} />
+    <PasswordGenerator on:generatedPassword={handleGeneratedPassword} />
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Register</button>
     </div>
